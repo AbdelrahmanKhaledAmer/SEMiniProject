@@ -1,0 +1,66 @@
+<html>
+    <style>
+    li
+    {
+        display: inline;
+    }
+    </style>
+    <h1 style="text-align: center; margin-top: 50px; font-size: 40px">
+        <%= student.firstName %>'s Profile
+    </h1>
+    <body>
+        <table style="margin: 0px auto; border: 1px solid black;text-align: center; align-items: center; align: center">
+            <td style="border: 1px solid black;">
+                <img src="<%= student.pic.substring(6,student.pic.length) %>" heigt="200" width="200">
+                </br></br></br>
+                Name: <%= student.firstName %> <%= student.lastName %>
+                </br>
+                Email: <%= student.email %>
+                </br>
+                Major: <%= student.major %>
+                </br>
+                Bio: <%= student.bio %>
+            </td>
+        </table>
+        <table style="margin: 0px auto; border: 1px solid black;text-align: center; align-items: center; align: center">
+                <% for(var i=0; i<works.length; i++){ %>
+                    <% if(i%5==0){%>
+                        <tr>
+                    <% } %>
+                    <td style="border: 1px solid black;">
+                        <p> <%= works[i].title %></p>
+                        <p> <%= works[i].creationDate %></p>
+                        <p> <%= works[i].Description %></p>
+                        <a href="uploads/<%= works[i].file %>" download="">
+                            Download
+                        </a>
+                    </td>
+                    <% if(i%5==4){%>
+                        </tr>
+                    <% } %>
+                <% } %>
+        </table>
+    </body>
+
+    <% if (pageCount > 1) { %>
+        <ul>  
+        <% if (currentPage > 1) { %>
+            <li><a href="/profileView?email=<%= student.email %>&page=1">&laquo;</a></li>
+        <% } %>
+        <% var i = 1;
+        if (currentPage > 5) {
+            i = currentPage - 4;
+        } %>
+        <% for (i; i<=pageCount; i++) { %>
+            <% if (currentPage == i) { %>
+                <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+            <% }else{ %>
+                <li><a href="/profileView?email=<%= student.email %>&page=<%= i %>"><%= i %></a></li>
+            <% } %>
+        <% } %>
+        <% if (currentPage != pageCount) { %>
+            <li><a href="/profileView?email=<%= student.email %>&page=<%= pageCount %>">&raquo;</a></li>
+        <% } %>
+        </ul>
+    <% } %>  
+</html>

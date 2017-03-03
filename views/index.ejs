@@ -1,0 +1,50 @@
+<html>
+    <style>
+    li {
+        display: inline;
+    }
+    </style>
+    <body style="text-align: center; margin-top: 50px; align-items: center;">
+        <table style="margin: 0px auto; border: 1px solid black;text-align: center; align-items: center; align: center">
+            <% for(var i=0; i<students.length; i++){ %>
+                <% if(i%5==0){%>
+                    <tr>
+                <% } %>
+                    <td style="border: 1px solid black;">
+                        <img src="<%= students[i].pic.substring(6,students[i].pic.length) %>" heigt="200" width="200">
+                        <p> <%= students[i].firstName %></p>
+                        <p> <%= students[i].email %></p>
+                        <p> <%= students[i].major %></p>
+                        <a href="/profileView?email=<%= students[i].email %>">
+                            Visit Page
+                        </a>
+                    </td>
+                <% if(i%5==4){%>
+                    </tr>
+                <% } %>
+            <% } %>
+        </table>
+    </body>
+
+    <% if (pageCount > 1) { %>
+        <ul>  
+        <% if (currentPage > 1) { %>
+            <li><a href="/index?page=1">&laquo;</a></li>
+        <% } %>
+        <% var i = 1;
+        if (currentPage > 5) {
+            i = currentPage - 4;
+        } %>
+        <% for (i; i<=pageCount; i++) { %>
+            <% if (currentPage == i) { %>
+                <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+            <% }else{ %>
+                <li><a href="/index?page=<%= i %>"><%= i %></a></li>
+            <% } %>
+        <% } %>
+        <% if (currentPage != pageCount) { %>
+            <li><a href="/index?page=<%= pageCount %>">&raquo;</a></li>
+        <% } %>
+        </ul>
+    <% } %>  
+</html>
